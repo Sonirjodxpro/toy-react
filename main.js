@@ -9,12 +9,16 @@ class MyComponent extends Component {
     constructor() {
         super();
         console.log('MyComponent Constructor');
+        this.state = {
+            a:1,
+            b:2,
+        }
     }
     render() {
-        return <div>
+        return <div id="myComponent">
             <h1>MyComponent</h1>
+            <span>{this.state.a.toString()}</span>
             {this.children}
-
         </div>
     }
 }
@@ -24,14 +28,14 @@ class MyComponentOne extends Component {
         console.log('MyComponentOne Constructor');
     }
     render() {
-        return <div>MyComponentOne</div>
+        return <div id="OneMyComponent">MyComponentOne</div>
     }
 }
 
 console.log(456);
 
 render(<MyComponent id="a" class="c">
-    < MyComponentOne > < /MyComponentOne>
+    < MyComponentOne > </MyComponentOne>
         <div id="b">anc</div>
         <footer>
             <span class="2">332</span>

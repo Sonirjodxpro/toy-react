@@ -32,14 +32,20 @@ export class Component {
     this.children.push(component);
   }
   get root() {
+    console.info('%cGET ROOT', 'color: white;font-weight: 700;background: blue');
     if (!this._root) {
-      this._root = this.render().root;
+      console.log('--------------this.render----------', this.render);
+      let obj = this.render();
+      console.info('--------------this.render()--------------------', obj);
+      this._root = obj.root;
     }
+    console.log('cl-----------', '_root', this._root);
     return this._root;
   }
 }
 export function createElement(type, attributes, ...children) {
   let e;
+  console.group();
   console.log('createElement', type, attributes);
   if (typeof type === 'string') {
     e = new ElementWrapper(type);
@@ -50,12 +56,14 @@ export function createElement(type, attributes, ...children) {
   for (let p in attributes) {
     e.setAttribute(p, attributes[p])
   }
+  console.group();
   let insertChild = (children) => {
-    console.log('insertChild');
+
     for (let child of children) {
       if (typeof child === 'string') {
         child = new TextWrapper(child)
       }
+      console.log('insertChild', child);
       if (typeof child === 'object' && child instanceof Array) {
         insertChild(child);
       } else {
@@ -65,6 +73,8 @@ export function createElement(type, attributes, ...children) {
     }
   }
   insertChild(children);
+  console.groupEnd();
+  console.groupEnd();
   return e;
 }
 export function render(component, parentElement) {
